@@ -1,8 +1,8 @@
 # zabbix
 
-##zabbixサーバーインストール&設定
+## zabbixサーバーインストール&設定
 
-####EPELリポジトリを有効にする
+#### EPELリポジトリを有効にする
 
 ```
 # cd /usr/local/src
@@ -14,7 +14,7 @@
 yum --enablerepo=epel install zabbix-server zabbix-server-mysql
 ```
 
-####DB作成
+#### DB作成
 
 ```
 # mysql -u root -p
@@ -24,7 +24,7 @@ mysql> GRANT ALL PRIVILEGES ON zabbix.* TO zabbix@localhost IDENTIFIED BY 'zabbi
 mysql> FLUSH PRIVILEGES;
 ```
 
-####スキーマ作成
+#### スキーマ作成
 
 ```
 $ mysql -u zabbix -pzabbix zabbix < /usr/share/doc/zabbix-server-mysql-1.8.22/create/schema/mysql.sql
@@ -32,7 +32,7 @@ $ mysql -u zabbix -pzabbix zabbix < /usr/share/doc/zabbix-server-mysql-1.8.22/cr
 $ mysql -u zabbix -pzabbix zabbix < /usr/share/doc/zabbix-server-mysql-1.8.22/create/data/images_mysql.sql
 ```
 
-####zabbixサーバー設定ファイルの更新
+#### zabbixサーバー設定ファイルの更新
 
 ```
 # vi /etc/zabbix/zabbix_server.conf
@@ -44,20 +44,20 @@ DBUser=zabbix
 DBPassword=zabbix
 ```
 
-####zabbixサーバー起動
+#### zabbixサーバー起動
 ```
 service zabbix-server start
 chkconfig zabbix-server on
 ```
 ***
 
-##Webフロントエンドのインストール
+## Webフロントエンドのインストール
 
 ```
 # yum --enablerepo=epel install zabbix-web-mysql
 ```
 
-####PHP設定ファイルを更新(必須)
+#### PHP設定ファイルを更新(必須)
 ```
 date.timezone = Asia/Tokyo
 post_max_size = 32M
@@ -72,7 +72,7 @@ upload_max_filesize = 16M
 # service httpd restart
 ```
 
-####Webブラウザで以下URLにアクセス
+#### Webブラウザで以下URLにアクセス
 1. http://[ホスト]/zabbix/
 2. ウィザードに従ってすすめる
 3. ログイン画面に遷移したらadmin / zabbixでログイン
@@ -82,15 +82,15 @@ upload_max_filesize = 16M
 
 ***
 
-##Zabbixエージェントのインストール
+## Zabbixエージェントのインストール
 (監視したいサーバーにエージェントをインストールするが、ここではZabbixサーバーと同一サーバとする)
 
-####インストール
+#### インストール
 ```
 # yum --enablerepo=epel install zabbix-agent
 ```
 
-####Zabbixエージェントの設定ファイル
+#### Zabbixエージェントの設定ファイル
 ```
 /etc/zabbix/zabbix_agentd.conf
 ```
@@ -111,7 +111,7 @@ Hostname=[ホスト名]
 ListenIP=127.0.0.1
 ```
 
-####Zabbixエージェントの起動
+#### Zabbixエージェントの起動
 ```
 service zabbix-agent start
 chkconfig zabbix-agent on
